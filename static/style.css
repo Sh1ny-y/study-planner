@@ -285,3 +285,124 @@ footer {
 .task-info h3 {
     overflow-wrap: anywhere;
 }
+
+/* Theme toggle */
+
+.theme-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.theme-toggle {
+    background: #9270d0;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background: #7654b5;
+}
+
+/* Dark mode */
+
+body.dark-mode {
+    background: #171525;
+    color: #f5f0ff;
+}
+
+.dark-mode header h1,
+.dark-mode .card h2 {
+    color: #c7a9ff;
+}
+
+.dark-mode header p,
+.dark-mode .stat p,
+.dark-mode .task-info p,
+.dark-mode footer {
+    color: #bcb4d0;
+}
+
+.dark-mode .card,
+.dark-mode .stat {
+    background: #282338;
+    box-shadow: 0 5px 20px #00000025;
+}
+
+.dark-mode .stat h2 {
+    color: #c7a9ff;
+}
+
+.dark-mode input,
+.dark-mode select {
+    background: #363047;
+    color: #ffffff;
+    border: 1px solid #514761;
+    color-scheme: dark;
+}
+
+.dark-mode input::placeholder {
+    color: #bcb4d0;
+}
+
+.dark-mode .task {
+    background: #363047;
+}
+
+.dark-mode .task-info h3 {
+    color: #f5f0ff;
+}
+
+.dark-mode .task.done h3 {
+    color: #a9a0bb;
+}
+
+.dark-mode .progress-bar {
+    background: #413951;
+}
+
+.dark-mode .progress-fill {
+    background: #b99aef;
+}
+
+.dark-mode .subject-tag,
+.dark-mode .filter-btn {
+    background: #413951;
+    color: #e3d3ff;
+}
+
+.dark-mode .filter-btn.active {
+    background: #9270d0;
+    color: white;
+}
+
+.dark-mode .empty {
+    color: #bcb4d0;
+}
+
+.dark-mode .overdue {
+    background: #59313b;
+    color: #ffb6c1;
+}
+
+.dark-mode .today {
+    background: #594b2d;
+    color: #ffe09a;
+}
+
+.dark-mode .upcoming {
+    background: #293f59;
+    color: #b4d9ff;
+}
+
+.dark-mode .complete-btn {
+    background: #284b3c;
+    color: #b2f5ca;
+}
+
+.dark-mode .delete-btn {
+    background: #563039;
+    color: #ffb4c0;
+}

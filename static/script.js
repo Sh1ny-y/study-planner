@@ -253,3 +253,42 @@ document.querySelectorAll(".filter-btn").forEach(button => {
 
 renderSubjects();
 renderTasks();
+
+/* Light and Dark Mode */
+
+const themeButton = document.getElementById("theme-toggle");
+
+function applyTheme(theme) {
+    const isDark = theme === "dark";
+
+    document.body.classList.toggle("dark-mode", isDark);
+
+    themeButton.textContent = isDark
+        ? "☀️ Light Mode"
+        : "🌙 Dark Mode";
+}
+
+let savedTheme = "light";
+
+try {
+    savedTheme = localStorage.getItem("studyPlannerTheme")
+        || "light";
+} catch {
+    // Use light mode if browser storage is unavailable.
+}
+
+applyTheme(savedTheme);
+
+themeButton.addEventListener("click", function() {
+    const newTheme = document.body.classList.contains("dark-mode")
+        ? "light"
+        : "dark";
+
+    applyTheme(newTheme);
+
+    try {
+        localStorage.setItem("studyPlannerTheme", newTheme);
+    } catch {
+        // Theme still changes for the current page.
+    }
+});
