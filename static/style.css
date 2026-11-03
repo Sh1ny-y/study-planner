@@ -267,3 +267,21 @@ footer {
     font-size: 14px;
     font-weight: bold;
 }
+
+.filter-btn {
+    border: none;
+    cursor: pointer;
+}
+
+.subject-tag {
+    overflow-wrap: anywhere;
+}
+
+.task-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.task-info h3 {
+    overflow-wrap: anywhere;
+}
