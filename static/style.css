@@ -406,3 +406,27 @@ body.dark-mode {
     background: #563039;
     color: #ffb4c0;
 }
+
+/* Theme button in the top right corner */
+
+.theme-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+    z-index: 100;
+}
+
+.theme-toggle {
+    background: #9270d0;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.theme-toggle:hover {
+    background: #7654b5;
+}

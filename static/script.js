@@ -264,8 +264,8 @@ function applyTheme(theme) {
     document.body.classList.toggle("dark-mode", isDark);
 
     themeButton.textContent = isDark
-        ? "☀️ Light Mode"
-        : "🌙 Dark Mode";
+        ? "☀️"
+        : "🌙";
 }
 
 let savedTheme = "light";
