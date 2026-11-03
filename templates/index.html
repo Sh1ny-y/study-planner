@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Study Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 My Study Planner</h1>
+            <p>Stay organized, stay motivated!</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat">
+                <h2>{{ tasks|length }}</h2>
+                <p>Total Tasks</p>
+            </div>
+            <div class="stat">
+                <h2>{{ tasks|selectattr('completed')|list|length }}</h2>
+                <p>Completed</p>
+            </div>
+            <div class="stat">
+                <h2>{{ tasks|rejectattr('completed')|list|length }}</h2>
+                <p>Remaining</p>
+            </div>
+        </div>
+
+<section class="card">
+    <h2>📊 Your Study Progress</h2>
+
+    {% set total = tasks|length %}
+    {% set completed = tasks|selectattr('completed')|list|length %}
+
+    {% if total > 0 %}
+        {% set progress = (completed / total * 100)|round|int %}
+    {% else %}
+        {% set progress = 0 %}
+    {% endif %}
+
+    <h3>{{ progress }}% Completed</h3>
+
+    <div class="progress-bar">
+        <div class="progress-fill"
+            style="width: {{ progress }}%;">
+        </div>
+
+    </div>
+
+    <p>Keep going! You're doing great! 💜</p>
+</section>
+
+<section class="card">
+    <h2>📚 My Subjects</h2>
+    <p>Add your own school subjects!</p>
+
+    <form action="{{ url_for('add_subject') }}" method="POST"
+          class="subject-form">
+
+        <input type="text"
+               name="subject_name"
+               placeholder="e.g. Kazakh, History, Biology"
+               maxlength="50"
+               required>
+
+        <button type="submit" class="add-btn">
+            + Add Subject
+        </button>
+    </form>
+
+    <div class="subject-list">
+        {% for subject in subjects %}
+            <span class="subject-tag">
+                {{ subject.name }}
+            </span>
+        {% endfor %}
+    </div>
+</section>
+
+        <section class="card">
+            <h2>✨ Add New Task</h2>
+            <form action="{{ url_for('add_task') }}" method="POST">
+                <input type="text" name="title"
+                       placeholder="What do you need to do?"
+                       maxlength="150" required>
+
+                
+<select name="subject" required>
+    {% for subject in subjects %}
+        <option value="{{ subject.name }}">
+            {{ subject.name }}
+        </option>
+    {% endfor %}
+</select>
+
+
+                <input type="date" name="deadline">
+                <button type="submit" class="add-btn">+ Add Task</button>
+            </form>
+        </section>
+
+        <section class="card">
+
+<div class="filters">
+    <a href="{{ url_for('home', filter='all') }}"
+       class="filter-btn {% if current_filter == 'all' %}active{% endif %}">
+        All Tasks
+    </a>
+
+    <a href="{{ url_for('home', filter='pending') }}"
+       class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">
+        Pending
+    </a>
+
+    <a href="{{ url_for('home', filter='completed') }}"
+       class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">
+        Completed
+    </a>
+</div>
+
+            <h2>📝 My Tasks</h2>
+
+            {% for task in filtered_tasks %}
+            <div class="task {% if task.completed %}done{% endif %}">
+                <div class="task-info">
+                    <h3>{{ task.title }}</h3>
+                    <p>📖 {{ task.subject }}</p>
+                    
+{% if task.deadline %}
+    <p>📅 Deadline: {{ task.deadline }}</p>
+
+    {% if not task.completed %}
+        {% if task.deadline < today %}
+            <span class="deadline overdue">
+                ⚠️ Overdue!
+            </span>
+        {% elif task.deadline == today %}
+            <span class="deadline today">
+                ⏰ Due Today!
+            </span>
+        {% else %}
+            <span class="deadline upcoming">
+                📅 Upcoming
+            </span>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+                </div>
+
+                <div class="actions">
+                    <form action="{{ url_for('complete', task_id=task.id) }}" method="POST">
+                        <button class="complete-btn" type="submit">
+                            {% if task.completed %}↩{% else %}✓{% endif %}
+                        </button>
+                    </form>
+
+                    <form action="{{ url_for('delete', task_id=task.id) }}" method="POST">
+                        <button class="delete-btn" type="submit">✕</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <p class="empty">No tasks yet. Add your first task! 🌷</p>
+            {% endfor %}
+        </section>
+
+        <footer>Made with 💜 from IT-2602</footer>
+    </div>
+</body>
+</html>
